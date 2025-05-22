@@ -1,6 +1,31 @@
 # genai.cpp
 A repository to standardize GenAI pipeline interfaces and allow different backends to implement their own optimized methods
 
+## Project Structure
+
+genai.cpp/
+├── pipelines/                # Core pipeline interface
+│   ├── text2text_pipeline.hpp  # Abstract base class and factory
+│   └── text2text_pipeline.cpp  # Factory implementation
+├── backends/                 # Backend-specific implementations
+│   ├── onnx/
+│   │   ├── ort_genai.h           # (Mocked) ONNX GenAI C API header
+│   │   ├── onnx_text_pipeline.hpp
+│   │   └── onnx_text_pipeline.cpp
+│   └── openvino/
+│       ├── ov_genai.h            # (Mocked) OpenVINO GenAI C API header
+│       ├── openvino_text_pipeline.hpp
+│       └── openvino_text_pipeline.cpp
+├── examples/                 # Example usage
+│   └── main.cpp
+├── cmake/                    # CMake helper modules
+│   ├── FindOrtGenAI.cmake      # (Mocked) CMake find module for ONNX GenAI lib
+│   └── FindOvGenAI.cmake       # (Mocked) CMake find module for OpenVINO GenAI lib
+├── CMakeLists.txt            # Root CMake build script
+└── README.md                 # This file
+
+
+
 ## Core Components
 
 * **`Text2TextPipeline` (in `pipelines/`)**: An abstract base class defining the interface for text generation. It includes a pure virtual `operator()` for performing inference and a factory function `create_pipeline` to instantiate specific backend implementations.
