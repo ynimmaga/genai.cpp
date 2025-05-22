@@ -5,6 +5,7 @@
 #include "ov_genai.h" // Mocked OpenVINO GenAI header
 #include <string>
 #include <memory>
+#include <openvino/genai/llm_pipeline.hpp>
 
 class OVText2TextPipeline : public Text2TextPipeline {
 public:
@@ -17,12 +18,7 @@ public:
 private:
     std::string model_path_;
     std::string device_;
-
-    std::unique_ptr<Ova::Config> config_;
-    std::unique_ptr<Ova::Model> model_;
-    std::unique_ptr<Ova::Tokenizer> tokenizer_;
-    std::unique_ptr<Ova::GeneratorParams> params_;
-    std::unique_ptr<Ova::Generator> generator_;
+    std::shared_ptr<ov::genai::LLMPipeline> pipeline;
 };
 
 #endif // OPENVINO_TEXT_PIPELINE_HPP
